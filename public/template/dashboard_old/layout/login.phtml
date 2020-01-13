@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <?=$header?>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/mdb.min.css" rel="stylesheet">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/style.css" rel="stylesheet">
+    <style>
+        .intro-2 {
+            background: url("<?=$helper->getHost()?>template/dashboard/asset/img/background.jpg")no-repeat center center;
+            background-size: cover;
+        }
+        .top-nav-collapse {
+            background-color: #3f51b5 !important;
+        }
+        .navbar:not(.top-nav-collapse) {
+            background: transparent !important;
+        }
+        @media (max-width: 768px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5 !important;
+            }
+        }
+
+        .card {
+            background-color: rgba(229, 228, 255, 0.2);
+        }
+        .md-form label {
+            color: #ffffff;
+        }
+        h6 {
+            line-height: 1.7;
+        }
+        
+        html,
+        body,
+        header,
+        .view {
+          height: 100%;
+        }
+
+        @media (min-width: 560px) and (max-width: 740px) {
+          html,
+          body,
+          header,
+          .view {
+            height: 650px;
+          }
+        }
+
+        @media (min-width: 800px) and (max-width: 850px) {
+          html,
+          body,
+          header,
+          .view  {
+            height: 650px;
+          }
+        }
+
+        .card {
+            margin-top: 30px;
+            /*margin-bottom: -45px;*/
+
+        }
+
+        .md-form input[type=text]:focus:not([readonly]),
+        .md-form input[type=password]:focus:not([readonly]) {
+            border-bottom: 1px solid #8EDEF8;
+            box-shadow: 0 1px 0 0 #8EDEF8;
+        }
+        .md-form input[type=text]:focus:not([readonly])+label,
+        .md-form input[type=password]:focus:not([readonly])+label {
+            color: #8EDEF8;
+        }
+
+        .md-form .form-control {
+            color: #fff;
+        }
+
+        .navbar.navbar-dark form .md-form input:focus:not([readonly]) {
+            border-color: #8EDEF8;
+        }
+
+        @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5!important;
+            }
+        }
+
+        .md-form input::placeholder {
+          color: #ffffff;
+        }
+        .md-form input::-webkit-input-placeholder {  /* Chrome/Opera/Safari */ 
+          color: #ffffff;
+        }
+        .md-form input::-moz-placeholder {  /* Firefox 19+ */ 
+          color: #ffffff;
+        }
+        .md-form input:-ms-input-placeholder {  /* IE 10+ */ 
+          color: #ffffff;
+        }
+        .md-form input::-moz-placeholder {  /* Firefox 18- */ 
+          color: #ffffff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <section class="view intro-2">
+          <div class="mask rgba-stylish-strong h-100 d-flex justify-content-center align-items-center">
+            <div class="container">
+                <?=$content?>
+            </div>
+          </div>
+        </section>
+    </header>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/popper.min.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/mdb.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+</html>

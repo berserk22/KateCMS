@@ -1,0 +1,138 @@
+<?php
+if (!is_null($query)):
+    foreach($query as $key => $value){
+        if ($key!=="post_type"){
+            if (!isset($param)) $param=$key."=".$value;
+            else  $param="&".$key."=".$value;
+        }
+    }
+endif;
+?>
+<div class="mb-3 font-small" style="font-weight: 400;">
+    <a href="<?=$helper->getHost()?>dashboard/pages/<?=isset($param)?"?".$param:""?>" class="btn btn-primary"><?=!isset($query)?"<b>Alle</b>":"Alle"?> <span class="badge badge-default ml-2"><?=$post_count?></span></a>
+    <a href="<?=$helper->getHost()?>dashboard/pages/?post_type=publish<?=isset($param)?"&".$param:""?>" class="btn btn-primary"><?=isset($query)&&isset($query['post_type'])&&$query['post_type']==="publish"?"<b>Veröffentlichte</b>":"Veröffentlichte"?> <span class="badge badge-default ml-2"><?=$publish?></span></a>
+    <a href="<?=$helper->getHost()?>dashboard/pages/?post_type=draft<?=isset($param)?"&".$param:""?>" class="btn btn-secondary"><?=isset($query)&&isset($query['post_type'])&&$query['post_type']==="draft"?"<b>Entwurf</b>":"Entwurf"?> <span class="badge badge-default ml-2"><?=$draft?></span></a>
+
+    <form method="GET" class="d-inline float-right col-lg-5">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <select name="page_type" class="form-control select2">
+                    <option value="">Seitentyp</option>
+                    <option value="page" <?=isset($query['page_type'])&&$query['page_type']==='page'?'selected':''?>>Standart</option>
+                    <?php
+                    $page_types=$helper->getPageType();
+                    if ($page_types!==false):
+                        foreach($page_types as $page_type){
+                            ?>
+                            <option value="<?=$page_type->__get('name')?>" <?=isset($query['page_type'])&&$query['page_type']===$page_type->__get('name')?'selected':''?>><?=$page_type->__get('title')?></option>
+                            <?php
+                        }
+                    endif;
+                    ?>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <button class="btn btn-primary">Auswahl einschränken </button>
+            </div>
+        </div>
+        
+        
+    </form>
+</div>
+<div class="card">
+    <div class="card-body py-3 px-3">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th class="th-lg">Title</th>
+                    <th class="th-lg">Seitentyp</th>
+                    <th class="th-lg"><i class="fa fa-comments ml-1"></i></th>
+                    <th class="th-lg">Status</th>
+                    <th class="th-lg">Erstellt</th>
+                    <th class="th-lg">Verändert</th>
+                    <th class="th-lg">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($posts!==false):
+                    if (is_object($posts)){
+                        $post=$posts;
+                        ?>
+                            <tr>
+                                <td><?=$post->__get('title')?></td>
+                                <td><?=$helper->getPageTypeTitle($post->__get('page_type'))?></td>
+                                <td><?=$helper->getCountComments($post->__get('id'))?></td>
+                                <td><?=$post->__get('status')==='publish'?'Veröffentlicht':'Entwurf'?></td>
+                                <td><abbr title="<?=date("d.m.Y H:i:s",$post->__get('created'))?>"><?=date("d.m.Y",$post->__get('created'))?></abbr></td>
+                                <td><abbr title="<?=date("d.m.Y H:i:s",$post->__get('updated'))?>"><?=date("d.m.Y",$post->__get('updated'))?></abbr></td>
+                                <td>
+                                    <a href="<?=$helper->getHost()?>dashboard/pages/?type=edit&post_id=<?=$post->__get('id')?>" class="btn btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                    <a href="<?=$helper->getHost()?>dashboard/pages/?type=delete&post_id=<?=$post->__get('id')?>" class="btn btn-danger px-3 page-remove" data-title="<?=$post->__get('title')?>"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php
+                    }
+                    else {
+                        foreach ($posts as $key => $post) {
+                            ?>
+                            <tr>
+                                <td><?=$post->__get('title')?></td>
+                                <td><?=$helper->getPageTypeTitle($post->__get('page_type'))?></td>
+                                <td><?=$helper->getCountComments($post->__get('id'))?></td>
+                                <td><?=$post->__get('status')==='publish'?'Veröffentlicht':'Entwurf'?></td>
+                                <td><abbr title="<?=date("d.m.Y H:i:s",$post->__get('created'))?>"><?=date("d.m.Y",$post->__get('created'))?></abbr></td>
+                                <td><abbr title="<?=date("d.m.Y H:i:s",$post->__get('updated'))?>"><?=date("d.m.Y",$post->__get('updated'))?></abbr></td>
+                                <td>
+                                    <a href="<?=$helper->getHost()?>dashboard/pages/?type=edit&post_id=<?=$post->__get('id')?>" class="btn btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                    <a href="<?=$helper->getHost()?>dashboard/pages/?type=delete&post_id=<?=$post->__get('id')?>" class="btn btn-danger px-3 page-remove" data-title="<?=$post->__get('title')?>"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                endif;
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(".table").DataTable({
+        "lengthChange": false,
+        "searching": false,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+        }
+    });
+    $("select").select2({ minimumResultsForSearch: -1 });
+
+    $('.page-remove').on('click', function(e){
+        e.preventDefault();
+        var title=$(this).attr('data-title');
+        var href=$(this).attr('href');
+        Swal.fire({
+            title: "Seite löschen",
+            html: 'Sind Sie sich sicher, dass die Seite <b>"' + title + '"</b> unwiderruflich gelöscht werden soll?',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#02a499",
+            cancelButtonColor: "#ec4561",
+            confirmButtonText: "Ja, löschen!",
+            cancelButtonText: "Scließen"
+        }).then(function (result) {
+            console.log(result);
+            if (result.value) {
+                location.href=href;
+            }
+        });
+
+        // $('#window-modal .modal-title').html('<span class="text-danger">Seite löschen</span>');
+        // $('#window-modal .modal-body').html('<p class="mb-0 mt-0">Sind Sie sich sicher, dass die Seite <b>"' + $(this).attr('data-title') + '"</b> unwiderruflich gelöscht werden soll?</p>');
+        // $('#window-modal .modal-footer').attr({'style':'display:block;'}).html('<a href="' + $(this).attr('href') + '" class="btn btn-danger btn-sm">Löschen</a><button type="button" class="btn btn-default btn-sm float-right" data-dismiss="modal">Schließen</button>');
+        // $('#window-modal').modal({
+        //     show:true,
+        //     backdrop:'static'
+        // });
+    });
+</script>

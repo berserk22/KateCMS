@@ -1,0 +1,104 @@
+<div class="card p-2 mb-4">
+    <form method="GET">
+        <div class="row">
+            <div class="col-lg-3 col-md-12 ml-2">
+                <select name="type" class="form-control select2">
+                    <option value="logs" <?=isset($request['type'])&&$request['type']==='logs'?'selected':''?>>Logs</option>
+                    <option value="debugs" <?=isset($request['type'])&&$request['type']==='debugs'?'selected':''?>>Debug</option>
+                    <option value="errors" <?=isset($request['type'])&&$request['type']==='errors'?'selected':''?>>Error</option>
+                    <option value="mails" <?=isset($request['type'])&&$request['type']==='mails'?'selected':''?>>Mails</option>
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <input name="date" placeholder="dd.mm.yyyy" type="text" id="" class="form-control datepicker mb-0" value="<?=isset($request['date'])&&$request['date']!==''?$request['date']:''?>">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <button class="btn btn-primary ml-2">Auswahl einschränken </button>
+            </div>
+        </div>
+    </form>    
+</div>
+<div class="card p-0 mb-4">
+    <div class="card-body py-3 px-3">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th class="th-lg">Name</th>
+                    <th class="th-lg">Letzte änderung</th>
+                    <th class="th-lg">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (!is_null($file_liste)):
+                foreach ($file_liste as $key => $file) {
+                    ?>
+                    <tr>
+                        <td><?=$file['name']?></td>
+                        <td><?=$file['latest_update']?></td>
+                        <td>
+                            <a href="#" class="btn btn-primary px-3 mr-2 log_view" file="<?=$file['name']?>"><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                endif;
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade log-viewer" id="log-modal" tabindex="-1" role="dialog" aria-labelledby="log-label" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 98%;">
+        <div class="modal-content" style="max-height: 94vh;">
+            <div class="modal-header">
+                <h6 class="modal-title mt-0" id="log-label"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="display: contents;"></div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+
+$("select").select2({ minimumResultsForSearch: -1 });
+
+$(".datepicker").datepicker({
+    language: "de",
+    autoclose: !0, 
+});
+
+$(".table").DataTable({
+    "lengthChange": false,
+    "searching": false,
+    "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+    }
+});
+
+$('.log_view').on('click', function(e){
+    e.preventDefault();    
+    var request=$.ajax({
+        url:'<?=$helper->getHost()?>api/getLogFile/',
+        type:'POST',
+        dataType:'JSON',
+        data: {"file":$(this).attr('file'), "type":"<?=isset($request['type'])?$request['type']:'logs'?>"},
+        success: function(result){
+            // console.log(result);
+            $('#log-modal .modal-title').html(result.file);
+            $('#log-modal .modal-body').html(result.content);
+            $('#log-modal .modal-footer').html('<button type="button" class="btn btn-danger" data-dismiss="modal">Schließen</button>');
+            $('#log-modal').modal({
+                show:true,
+                backdrop:'static'
+            });
+        },
+        error: function(xhr, status, error){
+            // console.log(status + ': ' + error);
+            // console.log(xhr);
+
+        }
+    });
+});
+</script>

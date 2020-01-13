@@ -1,0 +1,21 @@
+{
+    "name":"Tidid",
+    "author":{
+        "name":"Sergey Tevs",
+        "email":"tevs.sergey@gmail.com"
+    },
+    "url":"",
+    "version":"0.1",
+    "options":{
+        "layout":{
+            "layout":{
+                "title":"Standart"
+            },
+            "services":{
+                "title":"Services",
+                "liste":"service/liste",
+                "post":"service/post"
+            }
+        }
+    }
+}

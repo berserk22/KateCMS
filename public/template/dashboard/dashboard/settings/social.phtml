@@ -1,0 +1,143 @@
+<?php
+$host=Vendor\Config\Config::getConfig('host');
+$http_protocol=Vendor\Config\Config::getConfig('http_protocol');
+?>
+
+
+<section class="mb-3">
+    <div class="row">
+        
+        <style>
+            tbody tr th{
+                width:250px;
+                font-size: 1rem;
+                /*vertical-align: text-top;*/
+                vertical-align: top;
+                padding: 20px 10px 20px 0;
+                line-height: 1.3;
+            }
+            .mdb-select{
+                width: max-content;
+                width: -moz-fit-content;
+            }
+        </style>
+
+        <?php
+        if(isset($success) && $success===true){
+            ?>
+            <div class="col-lg-12 col-md-12">
+                <div class="alert alert-success alert-dismissible fade show w-100" role="alert">
+                    Einstellungen gespeichert.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+        <div class="col-lg-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body pt-0 px-0">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">
+                            <i class="fa fa-cogs mr-2"></i> Einstellungen › Sozialnetzwerk
+                        </h5>
+                        <form method="post" class="mx-2 mt-4 mb-0 md-form">
+                            <table class="form" style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            Facebook App ID
+                                        </th>
+                                        <td>
+                                            <input name="fb_app_id" type="text" value="<?=$setting['fb_app_id']?>" class="form-control">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            Facebook App Secret
+                                        </th>
+                                        <td>
+                                            <input name="fb_app_secret" type="password" value="<?=$setting['fb_app_secret']?>" class="form-control">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            Facebook Page ID
+                                        </th>
+                                        <td>
+                                            <input name="fb_page_id" type="text" value="<?=$setting['fb_page_id']?>" class="form-control">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary mt-4">Änderungen speichern</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="mb-3">
+    <div class="row">
+        
+        <div class="col-lg-4 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header white-text primary-color">
+                    <i class="fa fa-facebook-square mr-1"></i> Facebook
+                </div>
+                <div class="card-body pt-0 px-0 pb-0">
+                    <div class="card-body text-center">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header white-text primary-color">
+                    <i class="fa fa-instagram mr-1"></i> Instagram
+                </div>
+                <div class="card-body pt-0 px-0">
+                    <div class="card-body text-center">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header white-text primary-color">
+                    Anrufe
+                    <a href="#" class="text-white pull-right"><i class="fa fa-list-ul"></i></a>
+                    <a href="#" class="text-white pull-right" style="margin-right: 10px;"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="card-body pt-0 px-0">
+                    <div class="card-body text-center">
+                        <div class="list-group list-panel">
+                            <a href="#" class="list-group-item d-flex justify-content-between dark-grey-text">Cras justo odio <i class="fa fa-wrench ml-auto" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to fix"></i></a>
+                            <a href="#" class="list-group-item d-flex justify-content-between dark-grey-text">Dapibus ac facilisi<i class="fa fa-wrench ml-auto" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to fix"></i></a>
+                            <a href="#" class="list-group-item d-flex justify-content-between dark-grey-text">Morbi leo risus <i class="fa fa-wrench ml-auto" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to fix"></i></a>
+                            <a href="#" class="list-group-item d-flex justify-content-between dark-grey-text">Porta ac consectet<i class="fa fa-wrench ml-auto" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to fix"></i></a>
+                            <a href="#" class="list-group-item d-flex justify-content-between dark-grey-text">Vestibulum at eros <i class="fa fa-wrench ml-auto" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to fix"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

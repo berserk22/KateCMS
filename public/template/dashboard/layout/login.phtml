@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui">
+    <?=$header?>
+    <link rel="shortcut icon" href="<?=$helper->getHost()?>template/dashboard/asset/images/favicon.ico">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/metismenu.min.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="home-btn d-none d-sm-block">
+        <a href="<?=$helper->getHost()?>" class="text-dark"><i class="fas fa-home h2"></i></a>
+    </div>
+    <div class="wrapper-page">
+        <div class="card overflow-hidden account-card mx-3">
+            <div class="bg-primary p-3 text-white text-center position-relative">
+                <h4 class="font-20 m-b-5"><?=$title?></h4>
+                <!-- <p class="text-white-50">Sign in to continue to Veltrix.</p> -->
+                <!-- <a href="<?=$helper->getHost()?>dashboard/" class="logo logo-admin">
+                    <img src="<?=$helper->getHost()?>template/dashboard/asset/images/logo-sm.png" height="24" alt="logo">
+                </a> -->
+            </div>
+            <div class="account-card-content">
+                <?=$content?>
+            </div>
+        </div>
+        <div class="m-t-40 text-center">
+            <p>Don't have an account ? <a href="pages-register.html" class="font-500 text-primary">Signup now</a></p>
+            <p>© 2019 Veltrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+        </div>
+    </div><!-- end wrapper-page -->
+    <!-- jQuery  -->
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/bootstrap.bundle.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/metisMenu.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.slimscroll.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/waves.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/app.js"></script>
+</body>
+
+</html>

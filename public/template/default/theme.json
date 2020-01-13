@@ -1,0 +1,27 @@
+{
+    "name":"Default",
+    "author":{
+        "name":"IT Media Solutions GmbH",
+        "email":"info@it-media-solutions.de",
+        "website":"https://www.it-media-solutions.de"
+    },
+    "url":"",
+    "version":"0.1",
+    "options":{
+        "layout":{
+            "layout":{
+                "title":"Standart"
+            },
+            "blog":{
+                "title":"Blog",
+                "liste":"blog/liste",
+                "post":"blog/post"
+            },
+            "services":{
+                "title":"Services",
+                "liste":"blog/liste",
+                "post":"blog/post"
+            }
+        }
+    }
+}

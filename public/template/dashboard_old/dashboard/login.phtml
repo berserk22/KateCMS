@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto">
+        <div class="card wow fadeIn" data-wow-delay="0.3s">
+            <div class="card-body">
+                <div class="form-header blue-gradient" style="margin-bottom: 2rem;">
+                    <h3><i class="fa fa-user mt-2 mb-2"></i> Anmelden</h3>
+                </div>
+                <?php
+                if (!is_array($login_error) && isset($login_error)){
+                    echo '<div class="alert alert-danger" role="alert">'.$login_error.'</div>';
+                }
+                ?>
+                <form method="post">
+                    <?php
+                    if (isset($login_error['email']) && $login_error['email']!==''){
+                        foreach ($login_error['email'] as $error) {
+                            echo '<p class="text-danger" style="font-size: small;margin-left: 2.5rem;margin-bottom: 0px;">'.$error.'</p>';
+                        }
+                    }
+                    ?>
+                    <div class="md-form" style="margin-top: 0px;">
+                        <i class="fa fa-envelope prefix white-text"></i>
+                        <input type="email" name="email" class="form-control" placeholder="E-Mail" value="<?=isset($email)?$email:''?>">
+                    </div>
+                    <?php
+                    if (isset($login_error['password']) && $login_error['password']!==''){
+                        foreach ($login_error['password'] as $error) {
+                            echo '<p class="text-danger" style="font-size: small;margin-left: 2.5rem;margin-bottom: 0px;">'.$error.'</p>';
+                        }
+                    }
+                    ?>
+                    <div class="md-form" style="margin-top: 0px;">
+                        <i class="fa fa-lock prefix white-text"></i>
+                        <input type="password" name="password" class="form-control" placeholder="Passwort">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn blue-gradient btn-lg">Anmelden</button>
+                    </div>
+                </form>
+                <!-- <hr class="mt-4">
+                <div class="inline-ul text-center d-flex justify-content-center">
+                    <a href="<?=$http_protocol?>://<?=$host?>dashboard/login/?facebook" class="btn btn-fb"><i class="fa fa-facebook-f pr-1"></i> Facebook</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

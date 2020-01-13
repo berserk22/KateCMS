@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        
+        <div class="card card-cascade narrower">
+            <div class="view gradient-card-header light-blue lighten-1">
+                <h5 class="h5-responsive mb-0"><?=$cat_edit!==null?'Kategorie bearbeiten':'Neue Kategorie erstellen'?></h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="<?=$helper->getHost()?>dashboard/project/?type=category" id="catForm">
+                    <div class="mb-4">
+                        <label>Name</label>
+                        <div class="md-form mt-0 mb-0">
+                            <input type="text" name="name" class="form-control" placeholder="Name" value="<?=$cat_edit!==null?$cat_edit->__get('title'):''?>">
+                            <input type="text" name="id" class="d-none" <?=$cat_edit!==null?'':'disabled="disabled"'?> value="<?=$cat_edit!==null?$cat_edit->__get('id'):''?>">
+                        </div>
+                    </div>
+                    <div>
+                        <label>Beschreibung</label>
+                        <textarea name="description" class="form-control" type="text" style="height: 150px; font-size: 15px; font-family: 'Ubuntu';"><?=$cat_edit!==null?$cat_edit->__get('description'):''?></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button type="submit" form="catForm" class="btn btn-primary float-right"><?=$cat_edit!==null?'Speichern':'Neue Kategorie erstellen'?></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body pb-0">
+                <table class="table data_table table-responsive-lg">
+                    <thead>
+                        <tr>
+                            <th class="th-lg">Name</th>
+                            <th class="th-lg">Beschreibung</th>
+                            <th class="th-lg">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if (is_object($liste)){
+                            $category=$liste;
+                            ?>
+                                <tr>
+                                    <td><?=$category->__get('title')?></td>
+                                    <td><?=$category->__get('description')?></td>
+                                    <td>
+                                        <a href="<?=$helper->getHost()?>dashboard/project/?type=category&cat_id=<?=$category->__get('id')?>" class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                        <a href="<?=$helper->getHost()?>dashboard/project/?type=category&cat_id=<?=$category->__get('id')?>&action=delete" class="btn btn-sm btn-danger px-3 category-remove" data-title="<?=$category->__get('title')?>"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <?php
+                        }
+                        else {
+                            foreach ($liste as $key => $category) {
+                                ?>
+                                <tr>
+                                    <td><?=$category->__get('title')?></td>
+                                    <td><?=$category->__get('description')?></td>
+                                    <td>
+                                        <a href="<?=$helper->getHost()?>dashboard/project/?type=category&cat_id=<?=$category->__get('id')?>" class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                        <a href="<?=$helper->getHost()?>dashboard/project/?type=category&cat_id=<?=$category->__get('id')?>&action=delete" class="btn btn-sm btn-danger px-3 category-remove" data-title="<?=$category->__get('title')?>"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    // var options = {
+    //     theme: 'snow',
+    //     modules : {
+    //         toolbar: [
+    //             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    //             ['link'],
+    //         ]
+    //     }
+    // };
+    // var quill = new Quill('#editor', options);
+    
+    $(document).on('submit', 'form', function(){
+        // var content = document.querySelector('textarea[name=description]');
+        // content.textContent = quill.container.firstChild.innerHTML;        
+        $('form').serialize();
+        return true;
+    });
+    
+    $('.category-remove').on('click', function(e){
+        e.preventDefault();
+        $('#window-modal .modal-title').html('<span class="text-danger">Kategorie löschen</span>');
+        $('#window-modal .modal-body').html('<p class="mb-0 mt-0">Sind Sie sich sicher, dass die Kategorie <b>"' + $(this).attr('data-title') + '"</b> unwiderruflich gelöscht werden soll?</p>');
+        $('#window-modal .modal-footer').attr({'style':'display:block;'}).html('<a href="' + $(this).attr('href') + '" class="btn btn-danger btn-sm">Löschen</a><button type="button" class="btn btn-default btn-sm float-right" data-dismiss="modal">Schließen</button>');
+        $('#window-modal').modal({
+            show:true,
+            backdrop:'static'
+        });
+    });
+</script>

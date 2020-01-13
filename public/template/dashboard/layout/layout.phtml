@@ -1,0 +1,223 @@
+<?php
+$page_name=$helper->getActiveMenu();
+$user=$helper->getAdminUser();
+?>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui">
+    <?=$header?>
+    <link rel="shortcut icon" href="<?=$helper->getHost()?>template/dashboard/asset/images/logo-sm.png">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/metismenu.min.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/style.css" rel="stylesheet" type="text/css">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/plugins/summernote/summernote-bs4.css" rel="stylesheet" type="text/css">
+    
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/bootstrap.bundle.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/select2/js/select2.min.js"></script>
+    
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/bootstrap-datepicker/js/lang/bootstrap-datepicker.de.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/sweet-alert2/sweetalert2.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/chips/chips.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/plugins/summernote/lang/summernote-de-DE.js"></script>
+    <!-- File Upload -->
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.ui.widget.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.iframe-transport.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.fileupload.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.fileupload-process.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.fileupload-validate.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="topbar">
+            <div class="topbar-left">
+                <a href="#" class="logo">
+                    <span>
+                        <img src="<?=$helper->getHost()?>template/dashboard/asset/images/logo-light.png" alt="" height="18"> 
+                    </span>
+                    <i>
+                        <img src="<?=$helper->getHost()?>template/dashboard/asset/images/logo-sm.png" alt="" height="18">
+                    </i>
+                </a>
+            </div>
+            <nav class="navbar-custom">
+                <ul class="navbar-right list-inline float-right mb-0">
+                    <!-- <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
+                        <form role="search" class="app-search">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control" placeholder="Search ..."> 
+                                <button type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="<?=$helper->getHost()?>template/dashboard/asset/images/flags/us_flag.jpg" class="mr-2" height="12" alt=""> English <span class="mdi mdi-chevron-down"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right language-switch">
+                            <a class="dropdown-item" href="#">
+                                <img src="<?=$helper->getHost()?>template/dashboard/asset/images/flags/germany_flag.jpg" alt="" height="16">
+                                <span>German </span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="<?=$helper->getHost()?>template/dashboard/asset/images/flags/italy_flag.jpg" alt="" height="16">
+                                <span>Italian </span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="<?=$helper->getHost()?>template/dashboard/asset/images/flags/french_flag.jpg" alt="" height="16">
+                                <span>French </span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="<?=$helper->getHost()?>template/dashboard/asset/images/flags/spain_flag.jpg" alt="" height="16">
+                                <span>Spanish </span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="<?=$helper->getHost()?>template/dashboard/asset/images/flags/russia_flag.jpg" alt="" height="16">
+                                <span>Russian</span>
+                            </a>
+                        </div>
+                    </li> -->
+                    <li class="dropdown notification-list list-inline-item">
+                        <div class="dropdown notification-list nav-pro-img">
+                            <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <i class="mdi mdi-account" style="font-size: 18px;"></i> <?=$user->__get('firstname')?> <?=$user->__get('lastname')?> <span class="mdi mdi-chevron-down"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+                                <a class="dropdown-item" href="<?=$helper->getHost()?>dashboard/profile/"><i class="mdi mdi-account-circle m-r-5"></i> Profile</a> 
+                                <!-- <a class="dropdown-item" href="<?=$helper->getHost()?>account/setting/"><i class="mdi mdi-settings m-r-5"></i> Einstellungen</a>  -->
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="<?=$helper->getHost()?>dashboard/logout/"><i class="mdi mdi-power text-danger"></i> Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="list-inline menu-left mb-0">
+                    <li class="float-left">
+                        <button class="button-menu-mobile open-left waves-effect"><i class="mdi mdi-menu"></i></button>
+                    </li>
+                    <li class="d-none d-sm-block">
+                        <div class="dropdown pt-3 d-inline-block">
+                            <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-plus"></i> Hinzufügen</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="<?=$helper->getHost()?>dashboard/pages/?type=add"><i class="mdi mdi-file-document-outline"></i> Seite</a> 
+                                <a class="dropdown-item" href="<?=$helper->getHost()?>dashboard/page_type/?type=add"><i class="mdi mdi-file-compare"></i> Seitentyp</a>
+                                <a class="dropdown-item" href="<?=$helper->getHost()?>dashboard/categorie/?type=add"><i class="mdi mdi-file-question"></i> Kategorie</a> 
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?=$helper->getHost()?>dashboard/users/?type=add"><i class="mdi mdi-account-plus-outline"></i> Benutzer</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="left side-menu">
+            <div class="slimscroll-menu" id="remove-scroll">
+                <div id="sidebar-menu">
+                    <ul class="metismenu" id="side-menu">
+                        <li>
+                            <a href="<?=$helper->getHost()?>dashboard/" class="waves-effect<?=$page_name==='dashboard'||is_null($page_name)?' mm-active':''?>">
+                                <i class="mdi mdi-monitor-dashboard"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?=$helper->getHost()?>dashboard/landingpage/" class="waves-effect<?=$page_name==='landingpage'?' mm-active':''?>">
+                                <i class="mdi mdi-file-document-box-outline"></i>
+                                <span> Landingpage</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?=$helper->getHost()?>dashboard/pages/" class="waves-effect<?=$page_name==='pages'?' mm-active':''?>">
+                                <i class="mdi mdi-file-document-box-multiple-outline"></i>
+                                <span> Seiten</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?=$helper->getHost()?>dashboard/page_type/" class="waves-effect<?=$page_name==='page_type'?' mm-active':''?>">
+                                <i class="mdi mdi-file-compare"></i>
+                                <span> Seitentyp</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?=$helper->getHost()?>dashboard/comments/" class="waves-effect<?=$page_name==='comments'?' mm-active':''?>">
+                                <i class="mdi mdi-comment-multiple-outline"></i>
+                                <span> Kommentare</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?=$helper->getHost()?>dashboard/users/" class="waves-effect<?=$page_name==='users'?' mm-active':''?>">
+                                <i class="mdi mdi-account-multiple-outline"></i>
+                                <span> Benutzer</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect<?=$page_name==='settings'?' mm-active':''?>">
+                                <i class="mdi mdi-cogs"></i>
+                                <span>Einstellungen <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                            </a>
+                            <ul class="submenu mm-collapse">
+                                <li><a href="<?=$helper->getHost()?>dashboard/settings/?type=general">Allgemein</a></li>
+                                <li><a href="<?=$helper->getHost()?>dashboard/settings/?type=medien">Medien</a></li>
+                                <li><a href="<?=$helper->getHost()?>dashboard/settings/?type=mail">E-Mail</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="<?=$helper->getHost()?>dashboard/logs/" class="waves-effect<?=$page_name==='logs'?' mm-active':''?>">
+                                <i class="mdi mdi-file-alert-outline"></i>
+                                <span> Logs Viewer</span>
+                            </a>
+                        </li>
+                        <li><a href="<?=$helper->getHost()?>account/spion/" class="waves-effect<?=$page_name==='spion'?' mm-active':''?>">
+                                <i class="mdi mdi-eye-settings-outline"></i>
+                                <span> Spion <sup class="text-danger">beta</sup></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="content-page">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="page-title-box">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <h4 class="page-title"><?=isset($breadcrumb)?array_keys($breadcrumb)[count($breadcrumb)-1]:""?></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <?=$content?>
+                </div>
+            </div>
+            <footer class="footer">© 2019 InstaTool <span class="d-none d-sm-inline-block">- Crafted with <i class="mdi mdi-heart text-danger"></i> by IT Media Solutions</span>.</footer>
+        </div>
+    </div>
+    
+    
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/metisMenu.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.slimscroll.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/waves.min.js"></script>
+    <!-- Plugins JS-->
+    
+
+    <!-- Buttons examples -->
+    <!-- App JS -->
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/app.js"></script>
+
+</body>
+</html>

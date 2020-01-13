@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /*
+
+User-agent: Seobility
+Allow: /*
+
+Disallow: /dashboard/*
+Disallow: /api/*

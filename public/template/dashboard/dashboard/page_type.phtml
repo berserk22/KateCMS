@@ -1,0 +1,93 @@
+<?php
+if (!is_null($query)):
+    foreach($query as $key => $value){
+        if ($key!=="post_type"){
+            if (!isset($param)) $param=$key."=".$value;
+            else  $param="&".$key."=".$value;
+        }
+    }
+endif;
+?>
+<div class="card">
+    <div class="card-body py-3 px-3">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th class="th-lg">Title</th>
+                    <th class="th-lg">Status</th>
+                    <th class="th-lg">Erstellt</th>
+                    <th class="th-lg">Verändert</th>
+                    <th class="th-lg">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($pages_type!==false):
+                    if (is_object($pages_type)){
+                        $page_type=$pages_type;
+                        ?>
+                            <tr>
+                                <td><?=$page_type->__get('title')?></td>
+                                <td><?=$page_type->__get('status')==='publish'?'Veröffentlicht':'Entwurf'?></td>
+                                <td><abbr title="<?=date("d.m.Y H:i:s",$page_type->__get('created'))?>"><?=date("d.m.Y",$page_type->__get('created'))?></abbr></td>
+                                <td><abbr title="<?=date("d.m.Y H:i:s",$page_type->__get('updated'))?>"><?=date("d.m.Y",$page_type->__get('updated'))?></abbr></td>
+                                <td>
+                                    <a href="<?=$helper->getHost()?>dashboard/page_type/?type=edit&post_id=<?=$page_type->__get('id')?>" class="btn btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                    <a href="<?=$helper->getHost()?>dashboard/page_type/?type=delete&post_id=<?=$page_type->__get('id')?>" class="btn btn-danger px-3 page-remove" data-title="<?=$page_type->__get('title')?>"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php
+                    }
+                    else {
+                        foreach ($pages_type as $key => $page_type) {
+                            ?>
+                            <tr>
+                                <td><?=$page_type->__get('title')?></td>
+                                <td><?=$page_type->__get('status')==='publish'?'Veröffentlicht':'Entwurf'?></td>
+                                <td><abbr title="<?=date("d.m.Y H:i:s",$page_type->__get('created'))?>"><?=date("d.m.Y",$page_type->__get('created'))?></abbr></td>
+                                <td><abbr title="<?=date("d.m.Y H:i:s",$page_type->__get('updated'))?>"><?=date("d.m.Y",$page_type->__get('updated'))?></abbr></td>
+                                <td>
+                                    <a href="<?=$helper->getHost()?>dashboard/page_type/?type=edit&post_id=<?=$page_type->__get('id')?>" class="btn btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                    <a href="<?=$helper->getHost()?>dashboard/page_type/?type=delete&post_id=<?=$page_type->__get('id')?>" class="btn btn-danger px-3 page-remove" data-title="<?=$page_type->__get('title')?>"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                endif;
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(".table").DataTable({
+        "lengthChange": false,
+        "searching": false,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+        }
+    });
+    $("select").select2({ minimumResultsForSearch: -1 });
+
+    $('.page-remove').on('click', function(e){
+        e.preventDefault();
+        var title=$(this).attr('data-title');
+        var href=$(this).attr('href');
+        Swal.fire({
+            title: "Seite löschen",
+            html: 'Sind Sie sich sicher, dass die Seitytyp <b>"' + title + '"</b> unwiderruflich gelöscht werden soll?',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#02a499",
+            cancelButtonColor: "#ec4561",
+            confirmButtonText: "Ja, löschen!",
+            cancelButtonText: "Scließen"
+        }).then(function (result) {
+            console.log(result);
+            if (result.value) {
+                location.href=href;
+            }
+        });
+    });
+</script>

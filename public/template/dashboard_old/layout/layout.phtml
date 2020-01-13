@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <?=$header?>
+    
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/moment.min.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/popper.min.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/bootstrap.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.ui.widget.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.iframe-transport.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.fileupload.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.fileupload-process.js"></script>
+    <script src="<?=$helper->getHost()?>template/dashboard/asset/js/jquery.fileupload-validate.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/quill.js"></script>
+    <!-- <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/ckeditor/ckeditor.js"></script> -->
+    
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/locale-all.js"></script>
+    
+    
+     <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/script.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=$helper->getHost()?>template/dashboard/asset/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=$helper->getHost()?>template/dashboard/asset/css/mdb.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">    
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/quill.snow.css" rel="stylesheet">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/fullcalendar.min.css" rel="stylesheet">
+    <link href="<?=$helper->getHost()?>template/dashboard/asset/css/style.css" rel="stylesheet">
+</head>
+<body class="fixed-sn white-skin">
+    <script type="text/javascript" src="<?=$helper->getHost()?>template/dashboard/asset/js/mdb.min.js"></script>
+    <header>
+        <div id="slide-out" class="side-nav sn-bg-4 fixed">
+            <ul class="custom-scrollbar">
+            <li class="logo-sn waves-effect" style="border-bottom: 1px solid rgba(153,153,153,.3);">
+                <div class="text-center">
+                    <a href="<?=$helper->getHost()?>dashboard/" class="pl-0"><img src="<?=$helper->getHost()?>template/dashboard/asset/img/ITMS.png" class="" style="max-height: 60px; max-width: 150px;"></a>
+                </div>
+            </li>
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <a href="<?=$helper->getHost()?>dashboard/" class="collapsible-header waves-effect arrow-r <?=$menu_item==='dashboard'?'active':''?>">
+                            <i class="fa fa-tachometer"></i> Dashboards
+                        </a>
+                    </li>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r <?=$menu_item==='page'?'active':''?>">
+                            <i class="fa fa-file"></i> Seiten <i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/page/" class="waves-effect"><i class="fa fa-minus"></i> Alle</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/page/?type=add" class="waves-effect"><i class="fa fa-minus"></i> Erstellen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r <?=$menu_item==='post'?'active':''?>">
+                            <i class="fa fa-newspaper-o"></i> Beiträge <i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/post/" class="waves-effect"><i class="fa fa-minus"></i> Alle</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/post/?type=add" class="waves-effect"><i class="fa fa-minus"></i> Erstellen</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/post/?type=category" class="waves-effect"><i class="fa fa-minus"></i> Kategorien</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r <?=$menu_item==='service'?'active':''?>">
+                            <i class="fa fa-file"></i> Service <i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/service/" class="waves-effect"><i class="fa fa-minus"></i> Alle</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/service/?type=add" class="waves-effect"><i class="fa fa-minus"></i> Erstellen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r <?=$menu_item==='leistungen'?'active':''?>">
+                            <i class="fa fa-file"></i> Leistungen <i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/leistungen/" class="waves-effect"><i class="fa fa-minus"></i> Alle</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/leistungen/?type=add" class="waves-effect"><i class="fa fa-minus"></i> Erstellen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r <?=$menu_item==='project'?'active':''?>">
+                            <i class="fa fa-object-group"></i> Projekte <i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/project/" class="waves-effect"><i class="fa fa-minus"></i> Alle</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/project/?type=add" class="waves-effect"><i class="fa fa-minus"></i> Erstellen</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/project/?type=category" class="waves-effect"><i class="fa fa-minus"></i> Kategorien</a>
+                                </li>
+                                <!--
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/project/?type=attr" class="waves-effect"><i class="fa fa-minus"></i> Attributen</a>
+                                </li>
+                                -->
+                            </ul>
+                        </div>
+                    </li>        
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r <?=$menu_item==='team'?'active':''?>">
+                            <i class="fa fa-users"></i> Team <i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/team/" class="waves-effect"><i class="fa fa-minus"></i> Alle</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/team/?type=add" class="waves-effect"><i class="fa fa-minus"></i> Erstellen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r <?=$menu_item==='partner'?'active':''?>">
+                            <i class="fa fa-share-alt"></i> Partner <i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/partner/" class="waves-effect"><i class="fa fa-minus"></i> Alle</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/partner/?type=add" class="waves-effect"><i class="fa fa-minus"></i> Erstellen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>      
+                    <!--       
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r <?=$menu_item==='design'?'active':''?>">
+                            <i class="fa fa-desktop"></i> Design<i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/design/?type=themes" class="waves-effect"><i class="fa fa-minus"></i> Themes</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/design/?type=menus" class="waves-effect"><i class="fa fa-minus"></i> Menüs</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    -->
+                    <li>
+                        <a href="<?=$helper->getHost()?>dashboard/comments/" class="collapsible-header waves-effect arrow-r <?=$menu_item==='comments'?'active':''?>"><i class="fa fa-comments"></i> Kommentare</a>
+                    </li>
+                    <!--
+                    <li>
+                        <a href="<?=$helper->getHost()?>dashboard/statistic/" class="collapsible-header waves-effect arrow-r <?=$menu_item==='statistic'?'active':''?>"><i class="fa fa-bar-chart"></i> Statistik</a>
+                    </li>
+                    -->
+                    <li>
+                        <a href="<?=$helper->getHost()?>dashboard/logs/" class="collapsible-header waves-effect <?=$menu_item==='logs'?'active':''?>"><i class="fa fa-file-text-o"></i> Logs Viewer</a>
+                    </li>
+                    <li><a class="collapsible-header waves-effect arrow-r <?=$menu_item==='settings'?'active':''?>">
+                            <i class="fa fa-cogs"></i> Einstellungen<i class="fa fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/settings/?type=general" class="waves-effect"><i class="fa fa-minus"></i> Allgemein</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/settings/?type=medien" class="waves-effect"><i class="fa fa-minus"></i> Medien</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/settings/?type=discussion" class="waves-effect"><i class="fa fa-minus"></i> Diskussion</a>
+                                </li>
+                                <!--
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/settings/?type=reading" class="waves-effect"><i class="fa fa-minus"></i> Lesen</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/settings/?type=social" class="waves-effect"><i class="fa fa-minus"></i> Sozialnetzwerk</a>
+                                </li>
+                                -->
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/settings/?type=mail" class="waves-effect"><i class="fa fa-minus"></i> E-Mail</a>
+                                </li>
+                                <!--
+                                <li>
+                                    <a href="<?=$helper->getHost()?>dashboard/settings/?type=role" class="waves-effect"><i class="fa fa-minus"></i> Benutzer role</a>
+                                </li>
+                                -->
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            </ul>
+            <div class="sidenav-bg mask-strong"></div>
+        </div>
+        
+        <nav class="navbar fixed-top navbar-expand-lg scrolling-navbar double-nav">
+            <div class="float-left">
+                <a href="#" data-activates="slide-out" class="button-collapse black-text"><i class="fa fa-bars"></i></a>
+            </div>
+            <div id="breadcrumb" class="breadcrumb-dn mr-auto">
+                <p></p>
+            </div>
+            <ul class="nav navbar-nav nav-flex-icons ml-auto">
+                <!--
+                <li class="nav-item dropdown">
+                    <a href="<?=$helper->getHost()?>dashboard/project/" class="nav-link waves-effect">
+                        <span class="clearfix d-none d-sm-inline-block"><i class="fa fa-briefcase"></i> Projekte</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="<?=$helper->getHost()?>dashboard/task/" class="nav-link waves-effect">
+                        <span class="clearfix d-none d-sm-inline-block"><i class="fa fa-tasks"></i> Aufgaben</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="<?=$helper->getHost()?>dashboard/contact/" class="nav-link waves-effect">
+                        <span class="clearfix d-none d-sm-inline-block"><i class="fa fa-address-book-o"></i> Kontakte</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?=$helper->getHost()?>dashboard/calls/" class="nav-link waves-effect">
+                        <span class="clearfix d-none d-sm-inline-block"><i class="fa fa-phone"></i> Anrufe</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?=$helper->getHost()?>dashboard/calendar/" class="nav-link waves-effect">
+                        <span class="clearfix d-none d-sm-inline-block"><i class="fa fa-calendar"></i> Kalendar</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?=$helper->getHost()?>dashboard/email/?mailbox=INBOX" class="nav-link waves-effect"><i class="fa fa-envelope-o"></i> <span class="clearfix d-none d-sm-inline-block">E-Mail</span></a>
+                </li>
+                -->
+                <li class="nav-item">
+                    <a href="mailto:info@it-media-solutions.de?subject=Support" class="nav-link waves-effect"><i class="fa fa-comments-o"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
+                </li>
+                
+                <?php
+                $user=$helper->getAdminUser();
+                ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block"><?=$user->__get('firstname')?> <?=$user->__get('lastname')?></span></a>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <!-- <a class="dropdown-item" href="<?=$helper->getHost()?>dashboard/account/">Profil</a> -->
+                        <a class="dropdown-item" href="<?=$helper->getHost()?>dashboard/logout/">Abmelden</a>
+                    </div>
+                </li>
+
+            </ul>
+        </nav>
+        
+    </header>
+    <main style="margin-left: 10px; margin-right: 10px;">
+        <div class="container-fluid">
+            <?=$content?>
+        </div>
+    </main>
+    <script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+
+        var container = document.querySelector('.custom-scrollbar');
+        Ps.initialize(container, {
+            wheelSpeed: 2,
+            wheelPropagation: true,
+            minScrollbarLength: 20
+        });
+
+        // Material Select Initialization
+        $(document).ready(function () {
+            $('.mdb-select').material_select();
+            
+        });
+
+        // Tooltips Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        
+        
+    </script>
+    
+    <script>
+        $(function(){
+            var tmp_title=$("title").html();
+            $("#breadcrumb p").html(tmp_title.replace(" | <?=$helper->getTitle()?>", ""));
+            
+            $('.data_table').dataTable({
+                "bInfo" : true,
+                "bFilter": false,
+                "oLanguage": {
+                    "sLengthMenu": '_MENU_',
+                    "sEmptyTable": "Keine Daten in der Tabelle verfügbar",
+                    "sInfoEmpty": "0 bis 0 von 0 Einträgen",
+                    "sInfo": "_START_ bis _END_ von _TOTAL_ Einträgen",
+                    "oPaginate":{
+                        "sPrevious": "Zurück",
+                        "sNext": "Nächste"
+                    }
+                }                
+            });
+        });
+    </script>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="window-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="event-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fluid" style="min-width: 65%; max-width: 75%; width: 1200px;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pt-0"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="log-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fluid" style="width: 95%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="overflow: auto;max-height: 80vh;"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

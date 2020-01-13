@@ -1,0 +1,8 @@
+/data/debugs/*.log
+/data/errors/*.log
+/data/logs/*.log
+/data/mails/*.log
+/data/sessions/sess_*
+/public/source/tmp_image/*.*
+/public/source/tmp_image/medium/*.*
+/public/source/tmp_image/thumbnail/*.*

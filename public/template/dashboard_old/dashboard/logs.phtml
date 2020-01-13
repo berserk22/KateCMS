@@ -1,0 +1,104 @@
+<div class="card p-2 mb-4">
+    <form method="GET">
+        <div class="row">
+            <div class="col-lg-3 col-md-12 ml-2">
+                <select name="type" class="mdb-select mx-2">
+                    <option value="logs" <?=isset($request['type'])&&$request['type']==='logs'?'selected':''?>>Logs</option>
+                    <option value="debugs" <?=isset($request['type'])&&$request['type']==='debugs'?'selected':''?>>Debug</option>
+                    <option value="errors" <?=isset($request['type'])&&$request['type']==='errors'?'selected':''?>>Error</option>
+                    <option value="mails" <?=isset($request['type'])&&$request['type']==='mails'?'selected':''?>>Mails</option>
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="md-form mb-0" style="margin-top: .4rem!important;">
+                    <input name="date" placeholder="Datum auswählen" type="text" class="form-control datepicker mb-0" value="<?=isset($request['date'])&&$request['date']!==''?$request['date']:''?>">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <button class="btn btn-primary ml-2">Auswahl einschränken </button>
+            </div>
+        </div>
+    </form>    
+</div>
+<div class="card p-2 mb-4">
+    <div class="card-body pb-0 pt-0">
+        <table class="table data_table table-responsive-lg">
+            <thead>
+                <tr>
+                    <th class="th-lg">Name</th>
+                    <th class="th-lg">Letzte änderung</th>
+                    <th class="th-lg">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($file_liste as $key => $file) {
+                    ?>
+                    <tr>
+                        <td><?=$file['name']?></td>
+                        <td><?=$file['latest_update']?></td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-primary px-3 mr-2 log_view" file="<?=$file['name']?>"><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+$('.datepicker').pickadate({
+    // Strings and translations
+    monthsFull: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+    weekdaysFull: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+    weekdaysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+
+    // Buttons
+    today: 'Heute',
+    clear: 'Löschen',
+    close: 'Schließen',
+
+    // Accessibility labels
+    labelMonthNext: 'Nächsten Monat',
+    labelMonthPrev: 'Vorheriger Monat',
+    labelMonthSelect: 'Wähle einen Monat',
+    labelYearSelect: 'Wählen Sie ein Jahr aus',
+
+    // Formats
+    format: 'dd.mm.yyyy',
+
+    // First day of the week
+    firstDay: 1,
+});
+
+$('.log_view').on('click', function(e){
+    e.preventDefault();
+    console.log($(this).attr('file'));
+    
+    var request=$.ajax({
+        url:'<?=$helper->getHost()?>api/getLogFile/',
+        type:'POST',
+        dataType:'JSON',
+        data: {"file":$(this).attr('file'), "type":"<?=isset($request['type'])?$request['type']:'logs'?>"},
+        success: function(result){
+            $('#log-modal .modal-title').html('<span>Log Viewer</span>');
+            $('#log-modal .modal-body').html(result.content);
+            $('#log-modal .modal-footer').html('<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Schließen</button>');
+            $('#log-modal').modal({
+                show:true,
+                backdrop:'static'
+            });
+        },
+        error: function(xhr, status, error){
+            console.log(status + ': ' + error);
+            console.log(xhr);
+
+        }
+    });
+});
+
+
+</script>

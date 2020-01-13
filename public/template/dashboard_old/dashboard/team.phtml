@@ -1,0 +1,66 @@
+<div class="row mb-3">
+    <?php
+    if (is_array($teams)){
+        foreach($teams as $team){
+            ?>
+            <div class="col-md-2 col-sm-3">
+                <div class="card">
+                    <figure class="card-img-top" style="background-image: url(<?=$team->__get('image')?>);background-size: cover; height: 150px;"></figure>
+                    <div class="card-body px-2 py-2">
+                        <h6 class="card-title"><?=$team->__get('name')?></h6>
+                        <p class="small"><i class="fa fa-phone mr-2"></i>: <?=$team->__get('phone')?></p>
+                        <p class="small"><i class="fa fa-envelope-open mr-2"></i>: <?=$team->__get('email')?></p>
+                    </div>
+                    <div class="card-footer px-2 py-2">
+                        <a href="<?=$helper->getHost()?>dashboard/team/?type=edit&id=<?=$team->__get('id')?>" class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                        <a href="<?=$helper->getHost()?>dashboard/team/?type=delete&id=<?=$team->__get('id')?>" class="btn btn-sm float-right btn-danger px-3 team-remove" data-title="<?=$team->__get('name')?>"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+    }
+    else if (is_object($teams)){
+        $team=$teams;
+        ?>
+        <div class="col-md-2 col-sm-3">
+            <div class="card">
+                <figure class="card-img-top" style="background-image: url(<?=$team->__get('image')?>);background-size: cover; height: 150px;"></figure>
+                <div class="card-body px-2 py-2">
+                    <h6 class="card-title"><?=$team->__get('name')?></h6>
+                    <p class="small"><i class="fa fa-phone mr-2"></i>: <?=$team->__get('phone')?></p>
+                    <p class="small"><i class="fa fa-envelope-open mr-2"></i>: <?=$team->__get('email')?></p>
+                </div>
+                <div class="card-footer px-2 py-2">
+                    <a href="<?=$helper->getHost()?>dashboard/team/?type=edit&id=<?=$team->__get('id')?>" class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                    <a href="<?=$helper->getHost()?>dashboard/team/?type=delete&id=<?=$team->__get('id')?>" class="btn btn-sm float-right btn-danger px-3 team-remove" data-title="<?=$team->__get('name')?>"><i class="fa fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+    ?>
+</div>
+
+
+
+
+
+
+<div class="fixed-action-btn clearfix d-none d-xl-block" style="bottom: 45px; right: 24px;">
+    <a href="<?=$helper->getHost()?>dashboard/team/?type=add" class="btn-floating btn-lg red">
+        <i class="fa fa-pencil"></i>
+    </a>
+</div>
+<script>
+    $('.team-remove').on('click', function(e){
+        e.preventDefault();
+        $('#window-modal .modal-title').html('<span class="text-danger">Mitarbeiter löschen</span>');
+        $('#window-modal .modal-body').html('<p class="mb-0 mt-0">Sind Sie sich sicher, dass der Mitarbeiter <b>"' + $(this).attr('data-title') + '"</b> unwiderruflich gelöscht werden soll?</p>');
+        $('#window-modal .modal-footer').attr({'style':'display:block;'}).html('<a href="' + $(this).attr('href') + '" class="btn btn-danger btn-sm">Löschen</a><button type="button" class="btn btn-default btn-sm float-right" data-dismiss="modal">Schließen</button>');
+        $('#window-modal').modal({
+            show:true,
+            backdrop:'static'
+        });
+    });
+</script>

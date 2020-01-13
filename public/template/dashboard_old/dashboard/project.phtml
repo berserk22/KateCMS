@@ -1,0 +1,93 @@
+<div class="mb-3 font-small" style="font-weight: 400;">
+    <a href="<?=$helper->getHost()?>dashboard/project/" class="btn btn-primary btn-sm"><?=!isset($query)?"<b>Alle</b>":"Alle"?> <span class="badge badge-default ml-2"><?=$post_count?></span></a>
+    <a href="<?=$helper->getHost()?>dashboard/project/?post_type=publish" class="btn btn-primary btn-sm"><?=isset($query)&&isset($query['post_type'])&&$query['post_type']==="publish"?"<b>Veröffentlichte</b>":"Veröffentlichte"?> <span class="badge badge-default ml-2"><?=$publish?></span></a>
+    <a href="<?=$helper->getHost()?>dashboard/project/?post_type=draft" class="btn btn-primary btn-sm"><?=isset($query)&&isset($query['post_type'])&&$query['post_type']==="draft"?"<b>Entwurf</b>":"Entwurf"?> <span class="badge badge-default ml-2"><?=$draft?></span></a>
+</div>
+<div class="card">
+    <div class="card-body pb-0 pt-0">
+        <table class="table data_table table-responsive-lg">
+            <thead>
+                <tr>
+                    <th class="th-lg">Bild</th>
+                    <th class="th-lg">Title</th>
+                    <th class="th-lg">Kategorien</th>
+                    <th class="th-lg"><i class="fa fa-comments ml-1"></i></th>
+                    <th class="th-lg">Datum</th>
+                    <th class="th-lg">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (is_object($projects)){
+                    $project=$projects;
+                    ?>
+                        <tr>
+                            <td><img src="<?=$project->__get('thumb')?>" style="max-height: 100px;"></td>
+                            <td><?=$project->__get('title')?></td>
+                            <td>
+                            <?php
+                            $category_liste=$helper->getPageCategory($project->__get('id'));
+                            $liste='';
+                            foreach ($category_liste as $category) {
+                                $liste.='<span class="badge badge-default mr-2" style="font-size:100%; font-weight: 500;padding: .3em .4em;">'.$category->__get('title').'</span>';
+                            }
+                            echo $liste;
+                            ?>
+                            </td>
+                            <td><?=$helper->getCountComments($project->__get('id'))?></td>
+                            <td><abbr title="<?=date("d.m.Y H:i:s",$project->__get('created'))?>"><?=date("d.m.Y",$project->__get('created'))?></abbr></td>
+                            <td>
+                                <a href="<?=$helper->getHost()?>dashboard/project/?type=edit&post_id=<?=$project->__get('id')?>" class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                <a href="<?=$helper->getHost()?>dashboard/project/?type=delete&post_id=<?=$project->__get('id')?>" class="btn btn-sm btn-danger px-3 project-remove" data-title="<?=$project->__get('title')?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                }
+                else {
+                    foreach ($projects as $key => $project) {
+                        ?>
+                        <tr>
+                            <td><img src="<?=$project->__get('thumb')?>" style="max-height: 100px;"></td>
+                            <td><?=$project->__get('title')?></td>
+                            <td>
+                            <?php
+                            $category_liste=$helper->getPageCategory($project->__get('id'));
+                            $liste='';
+                            foreach ($category_liste as $category) {
+                                $liste.='<span class="badge badge-default mr-2" style="font-size:100%; font-weight: 500;padding: .3em .4em;">'.$category->__get('title').'</span>';
+                            }
+                            echo $liste;
+                            ?>
+                            </td>
+                            <td><?=$helper->getCountComments($project->__get('id'))?></td>
+                            <td><abbr title="<?=date("d.m.Y H:i:s",$project->__get('created'))?>"><?=date("d.m.Y",$project->__get('created'))?></abbr></td>
+                            <td>
+                                <a href="<?=$helper->getHost()?>dashboard/project/?type=edit&post_id=<?=$project->__get('id')?>" class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                <a href="<?=$helper->getHost()?>dashboard/project/?type=delete&post_id=<?=$project->__get('id')?>" class="btn btn-sm btn-danger px-3 project-remove" data-title="<?=$project->__get('title')?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fixed-action-btn clearfix d-none d-xl-block" style="bottom: 45px; right: 24px;">
+    <a href="<?=$helper->getHost()?>dashboard/project/?type=add" class="btn-floating btn-lg red">
+        <i class="fa fa-pencil"></i>
+    </a>
+</div>
+<script>
+    $('.project-remove').on('click', function(e){
+        e.preventDefault();
+        $('#window-modal .modal-title').html('<span class="text-danger">Projekt löschen</span>');
+        $('#window-modal .modal-body').html('<p class="mb-0 mt-0">Sind Sie sich sicher, dass das Projekt <b>"' + $(this).attr('data-title') + '"</b> unwiderruflich gelöscht werden soll?</p>');
+        $('#window-modal .modal-footer').attr({'style':'display:block;'}).html('<a href="' + $(this).attr('href') + '" class="btn btn-danger btn-sm">Löschen</a><button type="button" class="btn btn-default btn-sm float-right" data-dismiss="modal">Schließen</button>');
+        $('#window-modal').modal({
+            show:true,
+            backdrop:'static'
+        });
+    });
+</script>

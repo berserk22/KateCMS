@@ -1,0 +1,75 @@
+<div class="mb-3 font-small" style="font-weight: 400;">
+    <a href="<?=$helper->getHost()?>dashboard/page/" class="btn btn-primary btn-sm"><?=!isset($query)?"<b>Alle</b>":"Alle"?> <span class="badge badge-default ml-2"><?=$post_count?></span></a>
+    <a href="<?=$helper->getHost()?>dashboard/page/?post_type=publish" class="btn btn-primary btn-sm"><?=isset($query)&&isset($query['post_type'])&&$query['post_type']==="publish"?"<b>Veröffentlichte</b>":"Veröffentlichte"?> <span class="badge badge-default ml-2"><?=$publish?></span></a>
+    <a href="<?=$helper->getHost()?>dashboard/page/?post_type=draft" class="btn btn-primary btn-sm"><?=isset($query)&&isset($query['post_type'])&&$query['post_type']==="draft"?"<b>Entwurf</b>":"Entwurf"?> <span class="badge badge-default ml-2"><?=$draft?></span></a>
+</div>
+<div class="card">
+    <div class="card-body pb-0 pt-0">
+        <table class="table data_table table-responsive-lg">
+            <thead>
+                <tr>
+                    <th class="th-lg">Title</th>
+                    <th class="th-lg"><i class="fa fa-comments ml-1"></i></th>
+                    <th class="th-lg">Status</th>
+                    <th class="th-lg">Erstellt</th>
+                    <th class="th-lg">Verändert</th>
+                    <th class="th-lg">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (is_object($posts)){
+                    $post=$posts;
+                    ?>
+                        <tr>
+                            <td><?=$post->__get('title')?></td>
+                            <td><?=$helper->getCountComments($post->__get('id'))?></td>
+                            <td><?=$post->__get('status')==='publish'?'Veröffentlicht':'Entwurf'?></td>
+                            <td><abbr title="<?=date("d.m.Y H:i:s",$post->__get('created'))?>"><?=date("d.m.Y",$post->__get('created'))?></abbr></td>
+                            <td><abbr title="<?=date("d.m.Y H:i:s",$post->__get('updated'))?>"><?=date("d.m.Y",$post->__get('updated'))?></abbr></td>
+                            <td>
+                                <a href="<?=$helper->getHost()?>dashboard/page/?type=edit&post_id=<?=$post->__get('id')?>" class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                <a href="<?=$helper->getHost()?>dashboard/page/?type=delete&post_id=<?=$post->__get('id')?>" class="btn btn-sm btn-danger px-3 page-remove" data-title="<?=$post->__get('title')?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                }
+                else {
+                    foreach ($posts as $key => $post) {
+                        ?>
+                        <tr>
+                            <td><?=$post->__get('title')?></td>
+                            <td><?=$helper->getCountComments($post->__get('id'))?></td>
+                            <td><?=$post->__get('status')==='publish'?'Veröffentlicht':'Entwurf'?></td>
+                            <td><abbr title="<?=date("d.m.Y H:i:s",$post->__get('created'))?>"><?=date("d.m.Y",$post->__get('created'))?></abbr></td>
+                            <td><abbr title="<?=date("d.m.Y H:i:s",$post->__get('updated'))?>"><?=date("d.m.Y",$post->__get('updated'))?></abbr></td>
+                            <td>
+                                <a href="<?=$helper->getHost()?>dashboard/page/?type=edit&post_id=<?=$post->__get('id')?>" class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-edit"></i></a>
+                                <a href="<?=$helper->getHost()?>dashboard/page/?type=delete&post_id=<?=$post->__get('id')?>" class="btn btn-sm btn-danger px-3 page-remove" data-title="<?=$post->__get('title')?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fixed-action-btn clearfix d-none d-xl-block" style="bottom: 45px; right: 24px;">
+    <a href="<?=$helper->getHost()?>dashboard/page/?type=add" class="btn-floating btn-lg red">
+        <i class="fa fa-pencil"></i>
+    </a>
+</div>
+<script>
+    $('.page-remove').on('click', function(e){
+        e.preventDefault();
+        $('#window-modal .modal-title').html('<span class="text-danger">Seite löschen</span>');
+        $('#window-modal .modal-body').html('<p class="mb-0 mt-0">Sind Sie sich sicher, dass die Seite <b>"' + $(this).attr('data-title') + '"</b> unwiderruflich gelöscht werden soll?</p>');
+        $('#window-modal .modal-footer').attr({'style':'display:block;'}).html('<a href="' + $(this).attr('href') + '" class="btn btn-danger btn-sm">Löschen</a><button type="button" class="btn btn-default btn-sm float-right" data-dismiss="modal">Schließen</button>');
+        $('#window-modal').modal({
+            show:true,
+            backdrop:'static'
+        });
+    });
+</script>

@@ -1,0 +1,152 @@
+<section class="mb-3">
+    <div class="row">
+        
+        <style>
+            tbody tr th{
+                width:250px;
+                font-size: 1rem;
+                /*vertical-align: text-top;*/
+                vertical-align: top;
+                padding: 20px 10px 20px 0;
+                line-height: 1.3;
+            }
+            .mdb-select{
+                width: max-content;
+                width: -moz-fit-content;
+            }
+        </style>
+
+        <?php
+        if(isset($success) && $success===true){
+            ?>
+            <div class="col-lg-12 col-md-12">
+                <div class="alert alert-success alert-dismissible fade show w-100" role="alert">
+                    Einstellungen gespeichert.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+        <div class="col-lg-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body pt-0 px-0">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">
+                            <i class="fa fa-cogs mr-2"></i> Einstellungen › Diskussion
+                        </h5>
+                        <form method="post" class="mx-2 mt-4 mb-0 md-form">
+                            
+
+                            <table class="form-table">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Standardeinstellungen</th>
+                                        <td>
+                                            <!--<div class="form-check pl-0 pb-1">
+                                                <input name="default_pingback_flag" type="checkbox" id="default_pingback_flag" value="1">
+                                                <label for="default_pingback_flag" style="color:#212529;margin-top: 9px;">Versuchen, jedes in Beiträgen verlinkte Weblog zu benachrichtigen (verlangsamt das Veröffentlichen)</label>
+                                            </div>
+
+                                            <div class="form-check pl-0 pb-1">
+                                                <input name="default_ping_status" type="checkbox" id="default_ping_status" value="open" checked>
+                                                <label for="default_ping_status" style="color:#212529;">Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen ermöglichen</label>
+                                            </div>-->
+
+                                            <div class="form-check pl-0 pb-1">
+                                                <input name="default_comment_status" type="checkbox" id="default_comment_status" value="open" <?=$setting['default_comment_status']==='open'?'checked':''?>>
+                                                <label for="default_comment_status" style="color:#212529;margin-top: 9px;">Besuchern erlauben, neue Beiträge zu kommentieren</label>
+                                            </div>
+                                            <p class="description">(Diese Einstellungen können für jeden Beitrag individuell geändert werden.)</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Kommentareinstellungen</th>
+                                        <td>
+                                            <div class="form-check pl-0 pb-1">
+                                                <input type="checkbox" name="require_name_email" id="require_name_email" value="1" <?=$setting['require_name_email']==='1'?'checked':''?>>
+                                                <label for="require_name_email" style="color:#212529;margin-top: 9px;">Benutzer müssen zum Kommentieren Name und E-Mail-Adresse angeben</label>
+                                            </div>
+
+                                            <div class="form-check pl-0 pb-1">
+                                                <input name="comment_registration" type="checkbox" id="comment_registration" value="1" <?=$setting['comment_registration']==='1'?'checked':''?>>
+                                                <label for="comment_registration" style="color:#212529;">Benutzer müssen zum Kommentieren registriert und angemeldet sein</label>
+                                            </div>
+
+                                            
+
+                                            <!--<div class="form-check pl-0 pb-1">
+                                                <input name="show_comments_cookies_opt_in" type="checkbox" id="show_comments_cookies_opt_in" value="1">
+                                                <label for="show_comments_cookies_opt_in" style="color:#212529;">Opt-in-Checkbox für Kommentar-Cookies anzeigen.</label>
+                                            </div>
+                                            
+                                            <div class="form-check pl-0 pb-1">
+                                                <input name="thread_comments" type="checkbox" id="thread_comments" value="1" checked>
+                                                <label for="thread_comments" style="color:#212529;">Verschachtelte Kommentare in Ebenen organisieren</label> 
+                                            </div>
+
+                                            <select name="thread_comments_depth" id="thread_comments_depth" class="mdb-select">
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5" selected="selected">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+
+                                            <div class="form-check pl-0 pb-1">
+                                                <input name="page_comments" type="checkbox" id="page_comments" value="1">
+                                                <label for="page_comments" style="color:#212529;">Kommentare in Seiten umbrechen, mit </label>
+                                            </div>
+                                            <input name="comments_per_page" type="number" step="1" min="0" id="comments_per_page" value="50" class="form-control" style="width: fit-content; width: -moz-fit-content;">-->
+                                                                                                                                                            
+                                            <select name="comment_order" id="comment_order" class="mdb-select">
+                                                <option value="asc" <?=$setting['comment_order']==='asc'?'selected':''?>>Die ältesten</option>
+                                                <option value="desc" <?=$setting['comment_order']==='desc'?'selected':''?>>Die neuesten</option>
+                                            </select>
+                                            <p for="comment_order" style="font-size: 1rem;">Kommentare sollen oben stehen</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Mir eine E-Mail senden, wenn</th>
+                                        <td>
+                                            <div class="form-check pl-0 pb-1">
+                                                <input name="comments_notify" type="checkbox" id="comments_notify" value="1"  <?=$setting['comments_notify']==='1'?'checked':''?>>
+                                                <label for="comments_notify" style="color:#212529;margin-top: 9px;">jemand einen Kommentar schreibt. </label>
+                                            </div>
+
+                                            <div class="form-check pl-0 pb-1">
+                                                <input name="moderation_notify" type="checkbox" id="moderation_notify" value="1" <?=$setting['moderation_notify']==='1'?'checked':''?>>
+                                                <label for="moderation_notify" style="color:#212529;">ein Kommentar auf Freischaltung wartet. </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Bevor ein Kommentar erscheint,</th>
+                                        <td>
+                                            <div class="form-check pl-0 pb-1">
+                                                <input name="comment_moderation" type="checkbox" id="comment_moderation" value="1" <?=$setting['comment_moderation']==='1'?'checked':''?>>
+                                                <label for="comment_moderation" style="color:#212529;margin-top: 9px;">muss der Kommentar manuell freigegeben werden. </label>
+                                            </div>
+                                            
+                                            <div class="form-check pl-0 pb-1">
+                                                <input type="checkbox" name="comment_whitelist" id="comment_whitelist" value="1" <?=$setting['comment_whitelist']==='1'?'checked':''?>>
+                                                <label for="comment_whitelist" style="color:#212529;">muss der Autor bereits einen freigegebenen Kommentar geschrieben haben.</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary mt-4">Änderungen speichern</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

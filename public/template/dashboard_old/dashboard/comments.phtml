@@ -1,0 +1,94 @@
+
+<div class="mb-3 font-small" style="font-weight: 400;">
+    <a href="<?=$helper->getHost()?>dashboard/comments/" class="btn btn-primary btn-sm"><?=!isset($query)?"<b>Alle</b>":"Alle"?> <span class="badge badge-default ml-2"><?=$comment_count?></span></a>
+    <a href="<?=$helper->getHost()?>dashboard/comments/?status=approved" class="btn btn-primary btn-sm"><?=isset($query)&&isset($query['status'])&&$query['status']==="approved"?"<b>Veröffentlichte</b>":"Veröffentlichte"?> <span class="badge badge-default ml-2"><?=$approved_count?></span></a>
+    <a href="<?=$helper->getHost()?>dashboard/comments/?status=not_approved" class="btn btn-primary btn-sm"><?=isset($query)&&isset($query['status'])&&$query['status']==="not_approved"?"<b>Entwurf</b>":"Entwurf"?> <span class="badge badge-default ml-2"><?=$not_approved_count?></span></a>
+</div>
+<div class="card">
+    <div class="card-body pb-0 pt-0">
+        <table class="table data_table table-responsive-lg">
+            <thead>
+                <tr>
+                    <th class="th-lg">Author</th>
+                    <th class="th-lg">Beitrag</th>
+                    <th class="th-lg">Kommentar</th>
+                    <th class="th-lg">Datum</th>
+                    <th class="th-lg">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (is_object($comments)){
+                    $comment=$comments;
+                    $post=$helper->getPage($comment->__get('page_id'));
+                    ?>
+                        <tr>
+                            <td><?=$comment->__get('author')?> [<a class="text-primary" href="mailto:<?=$comment->__get('email')?>"><?=$comment->__get('email')?></a>]</td>
+                            <td><a class="text-primary" href="<?=$post->__get('guid')?>" target="_blank"><?=$post->__get('title')?> <i class="fa fa-external-link"></i></a></td>
+                            <td><?=$comment->__get('content')?></td>
+                            <td><abbr title="<?=date("d.m.Y H:i:s",$comment->__get('created'))?>"><?=date("d.m.Y",$comment->__get('created'))?></abbr></td>
+                            <td>
+                                <!--<a class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-info"></i></a>-->
+                                <a comment_id="<?=$comment->__get('id')?>" class="comment-approved btn btn-sm btn-success <?=$comment->__get('approved')!=='0'?'d-none':''?> px-3 mr-2"><i class="fa fa-check"></i></a>
+                                <a comment_id="<?=$comment->__get('id')?>" class="btn btn-sm btn-danger px-3 comment-remove" data-title="<?=$comment->__get('title')?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                }
+                else {
+                    foreach ($comments as $key => $comment) {
+                        $post=$helper->getPage($comment->__get('page_id'));
+                        ?>
+                        <tr>
+                            <td><?=$comment->__get('author')?> [<a class="text-primary" href="mailto:<?=$comment->__get('email')?>"><?=$comment->__get('email')?></a>]</td>
+                            <td><a class="text-primary" href="<?=$post->__get('guid')?>" target="_blank"><?=$post->__get('title')?> <i class="fa fa-external-link"></i></a></td>
+                            <td><?=$comment->__get('content')?></td>
+                            <td><abbr title="<?=date("d.m.Y H:i:s",$comment->__get('created'))?>"><?=date("d.m.Y",$comment->__get('created'))?></abbr></td>
+                            <td>
+                                <!--<a class="btn btn-sm btn-primary px-3 mr-2"><i class="fa fa-info"></i></a>-->
+                                <a comment_id="<?=$comment->__get('id')?>" class="comment-approved btn btn-sm btn-success <?=$comment->__get('approved')!=='0'?'d-none':''?> px-3 mr-2"><i class="fa fa-check"></i></a>
+                                <a comment_id="<?=$comment->__get('id')?>" class="btn btn-sm btn-danger px-3 comment-remove" data-title="<?=$comment->__get('title')?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $('.comment-remove').on('click', function(e){
+        e.preventDefault();
+        $.ajax({
+            url:'<?=$helper->getHost()?>api/removeComment/',
+            type:'POST',
+            dataType:'JSON',
+            data: {"comment_id":$(this).attr('comment_id')},
+            success: function(result){
+                location.reload();
+            },
+            error: function(xhr, status, error){
+                alert(status + ': ' + error);
+            }
+        });
+    });
+    
+    $('.comment-approved').on('click', function(e){
+        e.preventDefault();
+        $.ajax({
+            url:'<?=$helper->getHost()?>api/approvedComment/',
+            type:'POST',
+            dataType:'JSON',
+            data: {"comment_id":$(this).attr('comment_id')},
+            success: function(result){
+//                console.log(result);
+                location.reload();
+            },
+            error: function(xhr, status, error){
+                alert(status + ': ' + error);
+            }
+        });
+    });
+</script>
